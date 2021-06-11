@@ -6,7 +6,23 @@ public class Funcionario {
     private int matricula;
     private String nome;
     private double salario;
-    private double SalarioFinal;
+    private double SalarioFinal=0;
+    
+
+    public Funcionario(int matricula, String nome, double salario,double SalarioFinal) {
+        this.matricula = matricula;
+        this.nome = nome;
+        this.salario = salario;
+        this.SalarioFinal=SalarioFinal;
+    }
+
+    public double getSalarioFinal() {
+        return SalarioFinal;
+    }
+
+    public void setSalarioFinal(double SalarioFinal) {
+        this.SalarioFinal = SalarioFinal;
+    }
 
     public Funcionario(int matricula, String nome, double salario) {
         this.matricula = matricula;

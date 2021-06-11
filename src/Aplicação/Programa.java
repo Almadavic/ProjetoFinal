@@ -41,7 +41,7 @@ public class Programa {
         String nomeProduto="";
         int formPagament=0;
         int itens=0;
-        while(opçao!=5){
+        do {
         System.out.println("MENU DE OPÇÕES ");
         System.out.println("");
         System.out.println("1 - Reliazar Venda, emitir cupom fiscal  \n2 - Mostrar Salários dos Funcionários  \n3 - Verificar Bandeira do Cartão "
@@ -55,9 +55,10 @@ public class Programa {
                System.out.println("Data da Venda  : ");
                String datar = sc.next();
                data= sdf.parse(datar);
-           Venda d = new Venda(numeroVenda , data);      
+                
                System.out.println("Tipo de Pagamento (1) DINHEIRO, (2) VISTA, (3)CREDITO, (4)DEBITO, (5)CHEQUE : ");
                formPagament = sc.nextInt();
+           Venda d = new Venda(numeroVenda , data,formPagament); 
                System.out.println("Informe a quantidade de  Intens (-1 para quantidade, finalizar)");
                itens = sc.nextInt();
                for ( int i =1 ; i<=itens;i++) {
@@ -70,8 +71,10 @@ public class Programa {
                    System.out.println("Nome do Produto : ");
                    nomeProduto=sc.next();
                   ItemVenda venda = new ItemVenda(numeroVenda,nomeProduto,quantidadeProduto,preçoUnitario);
-                  
+               
+               
                }
+               
            break;
            case 2 :                   // Mostrar Salários dos Funcionários
                System.out.println("Deseja acessar Informações do Caixa(1) ou Gerente(2) ? ");
@@ -83,6 +86,8 @@ public class Programa {
                nomeCaixa = sc.next();
                System.out.println("Informe o salário base do Caixa : ");
                 salariobaseCaixa=sc.nextDouble();
+                   
+                   
                 Caixa a = new Caixa(matriculaCaixa,nomeCaixa,salariobaseCaixa);
                 System.out.println("Informe o valor dos Proventos para o Caixa : ");
                 proventosCaixa = sc.nextDouble();
@@ -90,8 +95,9 @@ public class Programa {
                descontosCaixa = sc.nextDouble();
                a.calcularSalario(proventosCaixa, descontosCaixa);
                a.Format();}
+               
                //------------------------------------------//---//
-               if (funcionario==2) { 
+              else if (funcionario==2) { 
                System.out.println("Informe a matricula do Gerente : ");
              matriculaGerente = sc.nextInt();
                System.out.println("Informe o nome do Gerente : ");
@@ -100,14 +106,17 @@ public class Programa {
                 salariobaseGerente=sc.nextDouble();
                    Gerente b = new Gerente(matriculaGerente,nomeGerente,salariobaseGerente);
                 System.out.println("Informe o valor dos Proventos para o Gerente : ");
-                proventosCaixa = sc.nextDouble();
+                proventosGerente = sc.nextDouble();
                 System.out.println("Informe o valor dos Descontos para o Gerente : ");
                descontosGerente = sc.nextDouble();
                System.out.println("Informe o valor da Comissão do gerente : ");
                comissaoGerente=sc.nextDouble();
+               b.calcularSalario(proventosGerente, descontosGerente,comissaoGerente);
                b.Format();
                } else {
-                   System.out.println("Opção Inválida"); }
+                   System.out.println("Opção Inválida");
+                   
+               }
                
                break;
     
@@ -123,10 +132,10 @@ public class Programa {
                }    
                break;            
            case 4 :       // Sobre o Programa       
-                           System.out.println("\n+------------------------------+\n"+"|      SOBRE O PROGRAMA        |"+"\n+------------------------------+");
-        System.out.println("|SEILA MERCADO LTDA            |\n"+"|CLIENTE: SUPERMERCADOS BIG    |"+"\n|VERÃO 1.0                     |");
-        System.out.println("|Gerente de projetos: Bernardo |\n"+"|Analista de sistemas: Barbara |"+"\n|Programadores: Vitor, João... |");
-        System.out.println("+------------------------------+\n"+"|Contato: (31)9876-5432        |"+"\n|         www.site.com.br      |"+"\n+------------------------------+");
+                   System.out.println("\n+----------------------------------------------------------+\n"+"|                      SOBRE O PROGRAMA                    |"+"\n+----------------------------------------------------------+");
+        System.out.println("|BIG  MERCADO LTDA                                         |\n"+"|CLIENTE: SUPERMERCADOS BIG                                |"+"\n|VERSÃO 1.0                                                |");
+        System.out.println("|Gerente de projetos: Bernardo Augusto , André Vilaça      |\n"+"|Analista de sistemas: Barbára Melo , Marcella Duraes      |"+"\n|Programadores: Victor Almada, João Vitor, Gleidson Richel |");
+        System.out.println("+----------------------------------------------------------+\n"+"|Contato: (31)9876-5432  , (31)98589-8955                  |"+"\n|                  www.BigE.com.br                         |"+"\n+----------------------------------------------------------+");
    
 
            break;
@@ -141,7 +150,7 @@ public class Programa {
        }
           
            
-        }
+        }while(opçao!=5);
 
         System.out.println("Programa Finalizado");
     
