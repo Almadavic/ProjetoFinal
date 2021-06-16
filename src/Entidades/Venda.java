@@ -1,6 +1,9 @@
 
 package Entidades;
 
+import Aplicação.Programa;
+import Enumerados.StatusVenda;
+import Enumerados.TipoPagamento;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import static java.util.Collections.list;
@@ -12,9 +15,18 @@ public class Venda {
  
     private int numero;
     private Date data;
-    private int formPagament;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy : HH/mm/ss");
+    private  TipoPagamento formPagament;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
     private List<ItemVenda> itens = new ArrayList<>(); 
+    StatusVenda status = StatusVenda.IMPRIMINDO;
+    
+    ItemVenda itemr = new ItemVenda();
+    
+                      
+
+    
+    
     
 
     public int getNumero() {
@@ -25,13 +37,9 @@ public class Venda {
         this.numero = numero;
     }
 
-    public int getFormPagament() {
-        return formPagament;
-    }
+   
 
-    public void setFormPagament(int formPagament) {
-        this.formPagament = formPagament;
-    }
+  
 
     public SimpleDateFormat getSdf() {
         return sdf;
@@ -52,7 +60,7 @@ public class Venda {
    
     
 
-    public Venda(Integer numero, Date data, Integer formPagament) {
+    public Venda(Integer numero, Date data,  TipoPagamento formPagament) {
         this.numero = numero;
         this.data = data;
     this.formPagament=formPagament;
@@ -85,5 +93,25 @@ public double total () {
     }
     return soma;
 }
+
+    
+    public void Format() {
+        System.out.println("======================");
+        System.out.println("DADOS DA VENDA : ");
+        System.out.println("======================");
+        System.out.println("Número do pedido : "+numero);
+        System.out.println("Data do pedido : "+sdf.format(data));
+        System.out.println("Status do pedido : "+status);
+        System.out.println("Forma de pagamento : "+formPagament);
+        System.out.println("======================");
+        System.out.println("ITENS DA VENDA ");
+        System.out.println("====================== ");
+        System.out.println("Quantidade do Item : "+itemr.getQuantidade());
+    }
+
+
+
+
+
 
 }

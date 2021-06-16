@@ -5,19 +5,21 @@ import Entidades.Caixa;
 import Entidades.Gerente;
 import Entidades.ItemVenda;
 import Entidades.Venda;
+import Enumerados.TipoPagamento;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 public class Programa {
+   static double g=10;
     public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
    Date data;
    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
    
    
-        
-
+        double f = g+10;
+        System.out.println(f);
        
         int opçao =0;
         int matriculaCaixa=0;
@@ -41,7 +43,13 @@ public class Programa {
         String nomeProduto="";
         int formPagament=0;
         int itens=0;
-        do {
+        int repeticao=0;
+        int contador=1;
+         Venda d;
+        TipoPagamento tipo=null;
+         do {
+            while(repeticao!=-1) {
+               
         System.out.println("MENU DE OPÇÕES ");
         System.out.println("");
         System.out.println("1 - Reliazar Venda, emitir cupom fiscal  \n2 - Mostrar Salários dos Funcionários  \n3 - Verificar Bandeira do Cartão "
@@ -58,12 +66,26 @@ public class Programa {
                 
                System.out.println("Tipo de Pagamento (1) DINHEIRO, (2) VISTA, (3)CREDITO, (4)DEBITO, (5)CHEQUE : ");
                formPagament = sc.nextInt();
-           Venda d = new Venda(numeroVenda , data,formPagament); 
-               System.out.println("Informe a quantidade de  Intens (-1 para quantidade, finalizar)");
-               itens = sc.nextInt();
-               for ( int i =1 ; i<=itens;i++) {
+               if (formPagament==1) {
+                   tipo = TipoPagamento.valueOf("DINHEIRO");
+               }if ( formPagament==2) {
+                   tipo = TipoPagamento.valueOf("VISTA");
+               }if ( formPagament==3) {
+                   tipo = TipoPagamento.valueOf("CREDITO");
+               }if (formPagament==4) {
+                   tipo = TipoPagamento.valueOf("DEBITO");
+                   
+               }if (formPagament==5) {
+                   tipo=TipoPagamento.CHEQUE;
+               }
+            d = new Venda(numeroVenda , data,tipo); 
+           
+           
+               
+               itens = 0;
+               do  {
                  
-                   System.out.println("Produto Número : "+i);
+                   System.out.println("Produto Número : "+contador);
                    System.out.println("Quantidade : ");
                    quantidadeProduto = sc.nextInt();
                    System.out.println("Preço Unitário : ");
@@ -71,11 +93,19 @@ public class Programa {
                    System.out.println("Nome do Produto : ");
                    nomeProduto=sc.next();
                   ItemVenda venda = new ItemVenda(numeroVenda,nomeProduto,quantidadeProduto,preçoUnitario);
+                
                
-               
-               }
-               
+                  
+                   
+                  d.adicionarItem(venda);
+               contador++;
+                   System.out.println("Informe a quantidade de  Intens (-1) para quantidade, finalizar)");
+                   itens = sc.nextInt();
+                   
+               }while (itens!=-1);
+               d.Format();   
            break;
+              
            case 2 :                   // Mostrar Salários dos Funcionários
                System.out.println("Deseja acessar Informações do Caixa(1) ou Gerente(2) ? ");
                funcionario =sc.nextInt();
@@ -125,9 +155,9 @@ public class Programa {
                card = sc.next().charAt(0);
                if (card=='v') {
                    System.out.println("Informe o setor para o cartão VISA : ");
-               }if (card=='m') {
+               }else if (card=='m') {
                    System.out.println("Informe o setor para o cartão MASTERCARD :");  
-               }if (card=='f') {
+               }else if (card=='f') {
                break;
                }    
                break;            
@@ -146,10 +176,25 @@ public class Programa {
                System.out.println("Opção Inválida");
                System.out.println("");
                }
-      
        }
+      
+                System.out.println("Deseja abrir o Menu de Opções Novamente ? ");
+                System.out.println("(1) Sim (-1)Não");
+                repeticao = sc.nextInt();
+                if (repeticao==-1) {
+                    break;
+                    
+                }
+                
+             if (repeticao==-1) {
+                    break;
+                }
+            
+            }
+           if (repeticao==-1) {
+                    break;
+                }
           
-           
         }while(opçao!=5);
 
         System.out.println("Programa Finalizado");

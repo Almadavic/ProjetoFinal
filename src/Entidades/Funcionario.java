@@ -2,11 +2,14 @@
 package Entidades;
 
 
-public class Funcionario {
-    private int matricula;
-    private String nome;
-    private double salario;
-    private double SalarioFinal=0;
+public abstract class Funcionario {
+    protected int matricula;
+    protected String nome;
+    protected double salario;
+    protected double SalarioFinal=0;
+    public void calcularSalario() {
+        
+    }
     
 
     public Funcionario(int matricula, String nome, double salario,double SalarioFinal) {
@@ -15,10 +18,14 @@ public class Funcionario {
         this.salario = salario;
         this.SalarioFinal=SalarioFinal;
     }
+    
+    public Funcionario(){
+    }
 
     public double getSalarioFinal() {
         return SalarioFinal;
     }
+    
 
     public void setSalarioFinal(double SalarioFinal) {
         this.SalarioFinal = SalarioFinal;

@@ -14,6 +14,13 @@ private  Double precoUnitario;
         this.quantidade = quantidade;
         this.precoUnitario = precoUnitario;
     }
+    
+    public ItemVenda(int quantidade) {
+        this.quantidade=quantidade;
+    }
+    public ItemVenda() {
+        
+    }
 
     public Integer getNumero() {
         return numero;

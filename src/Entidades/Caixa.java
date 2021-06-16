@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 
 public class Caixa extends Funcionario  {
-private Double SalarioFinal;
+
     public Caixa(int matricula, String nome, double salario,double SalarioFinal) {
         super(matricula, nome, salario,SalarioFinal);
         
@@ -21,7 +21,7 @@ private Double SalarioFinal;
  
 
     public  double  calcularSalario ( double proventos,double descontos) {
-       return  SalarioFinal=getSalario()+proventos-descontos;
+       return  SalarioFinal=salario+proventos-descontos;
     
     }
 
