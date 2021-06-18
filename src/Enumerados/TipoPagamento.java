@@ -2,7 +2,5 @@
 package Enumerados;
 
 public enum TipoPagamento {
-     DINHEIRO,VISTA,CREDITO,DEBITO,CHEQUE;
-
-  
+     DINHEIRO,AVISTA,CREDITO,DEBITO,CHEQUE;
 }

@@ -1,43 +1,25 @@
 
 package Entidades;
-
-import java.util.Scanner;
-
-
 public class Caixa extends Funcionario  {
-
-    public Caixa(int matricula, String nome, double salario,double SalarioFinal) {
-        super(matricula, nome, salario,SalarioFinal);
-        
-    }
-
-    public Caixa(int matricula, String nome, double salario) {
+    public Caixa(int matricula, String nome, double salario,double proventos , double descontos) {
         super(matricula, nome, salario);
+        this.proventos=proventos;
+        this.descontos=descontos;
     }
-
-  
-    
-
- 
-
-    public  double  calcularSalario ( double proventos,double descontos) {
-       return  SalarioFinal=salario+proventos-descontos;
-    
+    public  double  calcularSalario( ) {
+       return  salario+proventos-descontos;
     }
-
-
-public void Format() {
-    
-    System.out.println("---------------------------");
-    System.out.println("DADOS PARA O CAIXA");
-    System.out.println("---------------------------");
-    System.out.println("Matricula : "+getMatricula());
-    System.out.println("Nome : "+getNome());
-    System.out.println("Salário base : "+getSalario());
-    System.out.println("Salário final : "+SalarioFinal);
-    System.out.println("--------------------------------------");
-
-    
+@Override
+public String toString() {
+    StringBuilder bd = new StringBuilder();
+   bd.append("---------------------------\n");
+     bd.append("DADOS PARA O CAIXA\n");
+     bd.append("---------------------------\n");
+     bd.append("Matricula : "+getMatricula()+"\n");
+     bd.append("Nome : "+getNome()+"\n");
+     bd.append("Salário base : "+getSalario()+"\n");
+     bd.append("Salário final : "+calcularSalario()+"\n");
+     bd.append("--------------------------------------\n");
+     return bd.toString();
 }
-
 }
