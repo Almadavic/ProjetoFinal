@@ -1,7 +1,10 @@
 
 package Entidades;
-public class Gerente extends Funcionario {
+public final class Gerente extends Funcionario {
  private Double comissao;
+ public Gerente() {
+     super();
+ }
     public Gerente(int matricula, String nome, double salario) {
         super(matricula, nome, salario);
     }
@@ -11,8 +14,10 @@ public class Gerente extends Funcionario {
         this.proventos=proventos;
         this.descontos=descontos;
     }
-      public  Double calcularSalario () {
-        return salario+proventos+comissao-descontos;
+     @Override
+      public  double calcularSalario() {
+       return super.calcularSalario()+comissao;
+       
     }
     @Override
 public String toString() {

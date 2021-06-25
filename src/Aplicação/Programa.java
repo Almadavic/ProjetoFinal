@@ -1,6 +1,7 @@
 
 package Aplicação;
 import Entidades.Caixa;
+import Entidades.Funcionario;
 import Entidades.Gerente;
 import Entidades.ItemVenda;
 import Entidades.Venda;
@@ -13,51 +14,68 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 public class Programa {
+      static int opçao =0;
+        static int matriculaCaixa=0;
+        static int numeroVenda =0;
+       static char subMenu ;
+        static String nomeCaixa="";
+       static  double salariobaseCaixa=0;
+        static double salariobaseGerente=0;
+        static double proventosCaixa=0;
+        static double descontosCaixa=0;
+        static String nomeGerente="";
+        static int matriculaGerente=0;
+       static  double proventosGerente=0;
+        static double descontosGerente=0;
+        static double comissaoGerente=0;
+        static double funcionario=0;
+        static int quantidadeProduto=0;
+        static double preçoUnitario=0;
+        static String nomeProduto="";
+        static int formPagament=0;
+       static int setor;
+       static  int repeticao=0;
+     static    int contador=1;
+     static String Log="";
+     public static void sobre() {
+           System.out.println("\n+----------------------------------------------------------+\n"+"|                      SOBRE O PROGRAMA                    |"+"\n+----------------------------------------------------------+");
+        System.out.println("|BIG  MERCADO LTDA                                         |\n"+"|CLIENTE: SUPERMERCADOS BIG                                |"+"\n|VERSÃO 4.0                                                |");
+        System.out.println("|Gerente de projetos: Bernardo Augusto , André Vilaça      |\n"+"|Analista de sistemas: Barbára Melo , Marcella Duraes      |"+"\n|Programadores: Victor Almada, João Vitor, Gleidson Richel |");
+        System.out.println("+----------------------------------------------------------+\n"+"|Contato: (31)9876-5432  , (31)98589-8955                  |"+"\n|                  www.BigE.com.br                         |"+"\n+----------------------------------------------------------+");
+     }
+     public static void menu() {
+            System.out.println("MENU DE OPÇÕES ");
+        System.out.println("");
+         System.out.println("1 - Realizar Venda, emitir cupom fiscal  \n2 - Mostrar Salários dos Funcionários  \n3 - Verificar Bandeira do Cartão "
+                + "\n4 - Sobre o Programa \n5 - Sair");
+     }
     public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
    Date data;
    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        int opçao =0;
-        int matriculaCaixa=0;
-        int numeroVenda =0;
-        char subMenu ;
-        String nomeCaixa="";
-        double salariobaseCaixa=0;
-        double salariobaseGerente=0;
-        double proventosCaixa=0;
-        double descontosCaixa=0;
-        String nomeGerente="";
-        int matriculaGerente=0;
-        double proventosGerente=0;
-        double descontosGerente=0;
-        double comissaoGerente=0;
-        double funcionario=0;
-        int quantidadeProduto=0;
-        double preçoUnitario=0;
-        String nomeProduto="";
-        int formPagament=0;
-       int setor;
-        int repeticao=0;
-        int contador=1;
-         Venda Venda;   // iniciamos o objeto Venda  da Classe Venda.
-        TipoPagamento tipo=null;
+      
+         Venda Venda=null;   // iniciamos o objeto Venda  da Classe Venda.
+        TipoPagamento tipo=null;   // Instanciamos o objeto tipo da classe TipoPagamento
          Visa visa = new Visa();   // Instanciamos o visa
          masterCard masterCard= new masterCard(); // Instanciamos o mastercard
         do {
             while(repeticao!=-1) { 
-        System.out.println("MENU DE OPÇÕES ");
-        System.out.println("");
-        System.out.println("1 - Realizar Venda, emitir cupom fiscal  \n2 - Mostrar Salários dos Funcionários  \n3 - Verificar Bandeira do Cartão "
-                + "\n4 - Sobre o Programa \n5 - Sair");
+     
+        menu();
             System.out.println("Informe a opção : ");
          opçao=sc.nextInt();
        switch (opçao) {
            case 1:          // Realizar Venda, Emitir Cupom fiscal   
+               StatusVenda statusVenda = StatusVenda.valueOf("INICIANDO");
+          
+             
+               
                System.out.println("Número da Venda : ");
                numeroVenda = sc.nextInt();
                System.out.println("Data da Venda  : ");
                String datar = sc.next();
                data= sdf.parse(datar);
+               do {
                System.out.println("Tipo de Pagamento (1) DINHEIRO, (2) VISTA, (3)CREDITO, (4)DEBITO, (5)CHEQUE : ");
                formPagament = sc.nextInt();
                if (formPagament==1) {
@@ -70,8 +88,13 @@ public class Programa {
                    tipo = TipoPagamento.valueOf("DEBITO");   
                }if (formPagament==5) {
                    tipo=TipoPagamento.valueOf("CHEQUE");
+               } 
+               if  (formPagament<=0 || formPagament>=6) {
+                   System.out.println("Digito inválido");
                }
-            Venda = new Venda(numeroVenda , data,tipo,StatusVenda.IMPRIMINDO); 
+               }while(formPagament<=0 || formPagament>=6);   
+            Venda = new Venda(numeroVenda , data,tipo,statusVenda); 
+              Venda.setStatus(statusVenda);
                do  {
                    System.out.println("Produto Número : "+contador);
                    System.out.println("Quantidade : (Digite -1 para Finalizar)");
@@ -85,9 +108,13 @@ public class Programa {
                    nomeProduto=sc.next();
                   ItemVenda ItemVenda = new ItemVenda(contador,nomeProduto,quantidadeProduto,preçoUnitario); // instaciamos o objeto ItemVenda da classe Venda
                   Venda.adicionarItem(ItemVenda);
+                  statusVenda = StatusVenda.valueOf("PROCESSANDO");
+                  Venda.setStatus(statusVenda);
                contador++;
                }while (quantidadeProduto!=-1);
                   System.out.println(Venda); 
+                  
+                  Venda.setStatus(statusVenda);
            break;  
            case 2 :                   // Mostrar Salários dos Funcionários
                System.out.println("Deseja acessar Informações do Caixa(1) ou Gerente(2) ? ");
@@ -103,7 +130,7 @@ public class Programa {
                 proventosCaixa = sc.nextDouble();
                 System.out.println("Informe o valor dos Descontos para o Caixa : ");
                descontosCaixa = sc.nextDouble();
-            Caixa caixa = new Caixa(matriculaCaixa,nomeCaixa,salariobaseCaixa,proventosCaixa,descontosCaixa);
+            Funcionario caixa = new Caixa(matriculaCaixa,nomeCaixa,salariobaseCaixa,proventosCaixa,descontosCaixa);   // Instanciamos o objeto caixa da classe Caixa  
                    System.out.println(caixa);
                }
                //------------------------------------------//---//
@@ -120,7 +147,8 @@ public class Programa {
                descontosGerente = sc.nextDouble();
                System.out.println("Informe o valor da Comissão do gerente : ");
                comissaoGerente=sc.nextDouble();
-                 Gerente gerente = new Gerente(matriculaGerente,nomeGerente,salariobaseGerente,comissaoGerente,proventosGerente,descontosGerente);
+                 Funcionario gerente = new Gerente(matriculaGerente,nomeGerente,salariobaseGerente,comissaoGerente,proventosGerente,descontosGerente); // Instanciamos o objeto gerente da classe Gerente
+                 
                    System.out.println(gerente);
                } else {
                    System.out.println("Opção Inválida");   
@@ -147,10 +175,7 @@ public class Programa {
               }while(subMenu!='f');    
                   break;   
            case 4 :       // Sobre o Programa       
-                   System.out.println("\n+----------------------------------------------------------+\n"+"|                      SOBRE O PROGRAMA                    |"+"\n+----------------------------------------------------------+");
-        System.out.println("|BIG  MERCADO LTDA                                         |\n"+"|CLIENTE: SUPERMERCADOS BIG                                |"+"\n|VERSÃO 1.0                                                |");
-        System.out.println("|Gerente de projetos: Bernardo Augusto , André Vilaça      |\n"+"|Analista de sistemas: Barbára Melo , Marcella Duraes      |"+"\n|Programadores: Victor Almada, João Vitor, Gleidson Richel |");
-        System.out.println("+----------------------------------------------------------+\n"+"|Contato: (31)9876-5432  , (31)98589-8955                  |"+"\n|                  www.BigE.com.br                         |"+"\n+----------------------------------------------------------+");
+                 sobre();
            break;
            default:
                if (opçao==5) {
@@ -175,5 +200,7 @@ public class Programa {
                 }         
         }while(opçao!=5);
         System.out.println("Programa Finalizado");
+        
+       
     }
 }

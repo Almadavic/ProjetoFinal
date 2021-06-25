@@ -1,13 +1,17 @@
 
 package Entidades;
-public class Caixa extends Funcionario  {
+public final class Caixa extends Funcionario  {
+    public Caixa() {
+        super();
+    }
     public Caixa(int matricula, String nome, double salario,double proventos , double descontos) {
         super(matricula, nome, salario);
         this.proventos=proventos;
         this.descontos=descontos;
     }
-    public  double  calcularSalario( ) {
-       return  salario+proventos-descontos;
+    @Override
+    public  double  calcularSalario( ) {   // Redundancia ( Sei que não é necessario ) pois é identico a classe super , mas queria deixar explicito.
+       return super.calcularSalario();
     }
 @Override
 public String toString() {

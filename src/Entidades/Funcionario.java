@@ -6,10 +6,14 @@ public abstract class Funcionario {
     protected double salario;
     protected double proventos;
     protected double descontos;
+   
     public Funcionario(int matricula, String nome, double salario) {
         this.matricula = matricula;
         this.nome = nome;
         this.salario = salario;
+    }
+    public double calcularSalario() {
+    return    salario+proventos-descontos;
     }
     public Funcionario(){
     }

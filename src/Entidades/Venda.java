@@ -20,7 +20,7 @@ public class Venda {
     }
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); 
     private List<ItemVenda> itens = new ArrayList<>(); 
-    StatusVenda status = StatusVenda.IMPRIMINDO;
+    StatusVenda status ;
     public Venda() {
         this.numero=0;
         this.data=null;
@@ -29,6 +29,14 @@ public class Venda {
     }
     public int getNumero() {
         return numero;
+    }
+
+    public StatusVenda getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusVenda status) {
+        this.status = status;
     }
     public void setNumero(int numero) {
         this.numero = numero;
@@ -81,7 +89,8 @@ public double total () {
         bd.append("======================\n");
         bd.append("Número do pedido : "+numero+"\n");
         bd.append("Data do pedido : "+sdf.format(data)+"\n");
-        bd.append("Status do pedido : "+status+"\n");
+        bd.append("Status do pedido : "+StatusVenda.valueOf("IMPRIMINDO")+"\n");
+        setStatus(status.IMPRIMINDO);
         bd.append("Forma de pagamento : "+formPagament+"\n");
         bd.append("======================\n");
         bd.append("ITENS DA VENDA \n");
@@ -92,6 +101,10 @@ public double total () {
         bd.append("======================\n");
         bd.append("Total da Venda : R$"+total()+"\n");
         bd.append("======================\n");
+      status = StatusVenda.valueOf("FINALIZANDO");
+     
         return bd.toString();
     }
+    
+    
 }
